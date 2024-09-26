@@ -18,8 +18,7 @@ local plugin = ldb:NewDataObject(addonName, {
 function plugin.OnClick(self, button)
     if button == "LeftButton" then
         if IsControlKeyDown() then
-            InterfaceOptionsFrame_OpenToCategory(addonName)
-            InterfaceOptionsFrame_OpenToCategory(addonName) -- needs two calls
+            Settings.OpenToCategory(addonName)
 
         else
             MyChatAlert:ToggleAlertFrame()
