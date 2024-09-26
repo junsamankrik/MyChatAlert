@@ -1,3 +1,4 @@
+local addonName, addon = ...
 MyChatAlert = LibStub("AceAddon-3.0"):NewAddon("MyChatAlert", "AceConsole-3.0", "AceEvent-3.0")
 
 local AceGUI = LibStub("AceGUI-3.0")
@@ -18,7 +19,7 @@ function MyChatAlert:OnInitialize()
     -- Called when the addon is loaded
     self.db = LibStub("AceDB-3.0"):New("MyChatAlertDB", self.defaults, true)
     LibStub("AceConfig-3.0"):RegisterOptionsTable("MyChatAlert", self.options)
-    self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("MyChatAlert", "MyChatAlert")
+    LibStub("AceConfigDialog-3.0"):AddToBlizOptions("MyChatAlert", "MyChatAlert")
     self:RegisterChatCommand("mca", "ChatCommand")
     self:CreateAlertFrame()
     self:OnEnable(true) -- force OnEnable to run
@@ -190,8 +191,7 @@ function MyChatAlert:ChatCommand(arg)
             self.db.profile.ignoredAuthors[#self.db.profile.ignoredAuthors + 1] = arg2
         end
     else -- just open the options
-        InterfaceOptionsFrame_OpenToCategory(self.optionsFrame) -- need two calls
-        InterfaceOptionsFrame_OpenToCategory(self.optionsFrame)
+        Settings.OpenToCategory(addonName)
     end
 end
 
