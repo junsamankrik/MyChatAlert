@@ -260,13 +260,19 @@ function MyChatAlert:CreateAlertFrame()
     self.alertFrame.frame:SetLayout("Flow")
     self.alertFrame.frame:Hide()
 
+    local scrollFrame = AceGUI:Create("ScrollFrame")
+    scrollFrame:SetLayout("Flow")
+    scrollFrame:SetFullWidth(true)
+    scrollFrame:SetFullHeight(true)
+    self.alertFrame.frame:AddChild(scrollFrame)
+
     self.alertFrame.frame:SetCallback("OnClose", function(widget)
-        self.alertFrame.frame:ReleaseChildren()
+        scrollFrame:ReleaseChildren()
     end)
 
     self.alertFrame.frame:SetCallback("OnShow", function(widget)
-        self.alertFrame.AddHeaders(self.alertFrame.frame)
-        for i = 1, #self.alertFrame.alerts do self.alertFrame.AddEntry(i, self.alertFrame.alerts[i], self.alertFrame.frame) end
+        self.alertFrame.AddHeaders(scrollFrame)
+        for i = 1, #self.alertFrame.alerts do self.alertFrame.AddEntry(i, self.alertFrame.alerts[i], scrollFrame) end
         self.alertFrame.frame:SetStatusText(format(L["Number of alerts: %s"], #self.alertFrame.alerts))
     end)
 
